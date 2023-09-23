@@ -1,0 +1,41 @@
+package.json
+
+Se coloca en la línea siguiente a la propiedad "description", "type": "module" ya que estaremos trabajando con import en lugar de request.
+
+Dentro del objeto scripts se coloca "start": "nodemon server.js" para que automátimente al ejecutar en la línea de comando (terminal de VSC) npm start arranque el servidor y no tener que levantarlo, bajarlo, levantarlo, etc. 
+Cuando quiero correr un script debo colocar npm run dev, por ejemplo, excepto cuando quiero correr start en cuyo caso puedo omitir la palabra run.
+
+server.js
+
+Ambos métodos siempre debo escribirlos para así indicarle al servidor que de express que entienda la información recibida. 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+
+En el endpoint donde recibo por params el idProduct, utilizo (+idProduct) para que el string del id lo pueda pasar a un número y así enviarlo al método getProductById. 
+En lugar de (+idProduct) podría haber utilizado (parseInt(idProduct)) obteniendo así el mismo resultado.
+
+ProductsManager.js
+createProduct
+Body --> Json
+
+{
+  "title":"Pinza amperométrica", 
+  "description":"Mango antideslizante",
+  "code":"PIA",
+  "price":1500,
+  "status":"true",	  
+  "stock":35,
+  "category":"Herramienta",
+  "thumbnails": "Ninguna imagen"
+}
+
+ProductsManager.js
+
+En una entrega anterior se pedí validar el campo code y cuando existía no se debía generar otro producto con el mismo código. En este caso he modificado el campo en cuestión para que no se pueda agregar un producto cuando otro producto con el mismo título ya existe.
+
+server.js
+app.post
+Aquí realizo la validación de que el frontend me envíe todos los valores correspondientes a los parámetros definidos para el producto. Si alguno falta, no se crea el producto.
+
+A partir de routeo que realizo, importo Router de express.
+__dirname no esta definido para ES module. 
