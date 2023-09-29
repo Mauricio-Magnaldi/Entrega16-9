@@ -9,7 +9,10 @@ router.get('/', async (request, response) => {
         if (!products.length) {
             response.status(200).json({mensaje: 'Carrito vacio.'});
         } else {
-            response.status(200).json({mensaje: `${products.length} productos en el carrito.`, products});
+            const quantityProducts = products.reduce((accumulator, product) => accumulator + product.quantityProductOnCart, 0); 
+            console.log(quantityProducts);
+     
+            response.status(200).json({mensaje: `${quantityProducts} unidades correspondientes a ${products.length} productos distintos en el carrito.`,products});
         }
     } catch (error) {
         response.status(500).json({message: error});

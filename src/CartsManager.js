@@ -9,9 +9,9 @@ class CartsManager{
         async getProductsOnCart(queryObject){
             try{
                 if(fs.existsSync(this.path)) {
-                    const contenidoEnElArchivo = await fs.promises.readFile(this.path,"utf-8");
-                    const contenido = JSON.parse(contenidoEnElArchivo); 
-                    return contenido;
+                    const productsOnFile = await fs.promises.readFile(this.path,"utf-8");
+                    const products = JSON.parse(productsOnFile);                     
+                    return products;
                 } else {
                     return [];       
                 }
@@ -23,23 +23,23 @@ class CartsManager{
         async addProductToCart(object){
             try {     
                     const products = await this.getProductsOnCart({});
-                    const idProduct = products.some((product) => product.idProductOnCart === +object.idProductOnCart)
-              
-                    console.log("object: ",+object.idProductOnCart);
-                
-                    console.log("idProduct: ",idProduct);
-        
-                    let id;
-                    if(!products.length) {
-                            id = 1;
-                        } else {
-                            id = products[products.length - 1].id+1;
-                        }
-               
-                    const newProduct = {id, ...object};
-                    products.push(newProduct);
+                    const index = products.findIndex((product) => product.idProductOnCart === +object.idProductOnCart);
+                    if ( index !== -1 ) {
+                                console.log(`El producto ${products[index].idProductOnCart} ya se encuentra en el carrito.`);
+                                products[index].quantityProductOnCart += +object.quantityProductOnCart;                                 
+                            } else {
+                                console.log(`El producto ${object.idProductOnCart} no existe en el carrito.`);
+                                let id;
+                                if(!products.length) {
+                                        id = 1;
+                                    } else {
+                                        id = products[products.length - 1].id+1;
+                                }
+                            const newProduct = {id, ...object};
+                            products.push(newProduct);
+                    }
                     await fs.promises.writeFile(this.path, JSON.stringify (products));
-                    return newProduct;                            
+                    return products;                            
                 } catch (error) {
                     return error;
                 }

@@ -1,4 +1,4 @@
-import { query } from 'express';
+//import { query } from 'express';
 import fs from 'fs';
 
 class ProductsManager{
@@ -67,15 +67,25 @@ class ProductsManager{
             }
         }
 
+        /*
+        La función updateProduct debe recibir por params el id del producto y también
+        debe recibir el mismo id por body, de esa forma compara que sean iguales y ahí
+        si permite modificar el valor de la propiedad correspondiente enviada por body
+        aunque no modificará bajo ninguna circunstancia el valor de id.
+        */
         async updateProduct(idProduct, object) {
             try { 
+                console.log("object ",object);
                 const products = await this.getProducts({});
                 const index = products.findIndex((product) => product.id === idProduct);
                 if (index === -1) {
                     return -1;
                 }
-                const updateProduct = products[index];
-                products[index] = {...updateProduct, ...object};
+                if (idProduct !== +object.id) {
+                    return -1;
+                }
+                const updateProduct = { ...products[index], ...object};
+                products[index] = updateProduct;
                 await fs.promises.writeFile(this.path, JSON.stringify(products));
                 return 1;
             } catch (error) {

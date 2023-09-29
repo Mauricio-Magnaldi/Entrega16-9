@@ -12,7 +12,7 @@ router.get('/', async (request, response) => {
             response.status(200).json({mensaje: 'Sin productos encontrados.'});
         } else {
             response.status(200).json({mensaje: `${products.length} productos encontrados.`, products});
-            console.log("limite ",limit)
+  //          console.log("limite ",limit)
         }
     } catch (error) {
         response.status(500).json({message: error});
@@ -38,7 +38,7 @@ router.get("/:idProduct", async (request, response) => {
 router.post("/", async (request, response) => {
     const product = request.body;
     const {title, description, code, price, status, stock, category, thumbnails} = product;
-    if (!title || !description || !code || !price || !status || !stock || !category) {
+    if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
         return response.status(400).json({mensaje: 'Error de validación. No has especificado al menos un campo. Producto no agregado.'});
     }
     try {
