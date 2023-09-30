@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Stock</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each products}}
+        <tr>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>{{code}}</td>
+            <td>{{price}}</td>
+            <td>{{status}}</td>
+            <td>{{stock}}</td>
+            <td>{{category}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

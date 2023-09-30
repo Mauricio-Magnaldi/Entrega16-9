@@ -7,7 +7,7 @@ const router = Router();
 //Se prueba desde la extensión Thunder Client en VSC -> get -> body -> json
 router.get('/', async (request, response) => {
     try {
-        const products = await productsManager.getProducts({});
+        const products = await productsManager.getProducts(request.query);
         if (!products.length) {
             response.status(200).json({mensaje: 'Sin productos encontrados.'});
         } else {

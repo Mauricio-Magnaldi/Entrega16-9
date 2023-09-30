@@ -8,11 +8,13 @@ class ProductsManager{
         }
 
         async getProducts(queryObject){
+            //En limit me indicarán mediante query params cuántos productos mostrar.
+            const {limit} = queryObject;
             try{
                 if(fs.existsSync(this.path)) {
                         const contenidoEnElArchivo = await fs.promises.readFile(this.path,"utf-8");
                         const contenido = JSON.parse(contenidoEnElArchivo); 
-                        return contenido;
+                        return limit ? contenido.slice(0, limit) : contenido;
                     } else {
                         return [];
                 }

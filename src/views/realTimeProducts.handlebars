@@ -1,0 +1,47 @@
+<div>
+    <h2>Carga de producto</h2>
+    <form id="form">
+        <label>Title:</label> <input type="text" name="title" id="formInputTitle">
+        <label>Description:</label> <input type="text" name="description" id="formInputDescription">
+        <label>Code:</label> <input type="text" name="code" id="formInputCode">
+        <label>Price:</label> <input type="number" name="price" id="formInputPrice">
+        <label>Status:</label> <input type="boolean" name="status" id="formInputStatus">
+        <label>Stock:</label> <input type="number" name="stock" id="formInputStock">
+        <label>Category:</label> <input type="text" name="category" id="formInputCategory">
+        <input type="submit" value="Create">
+    </form>
+</div>
+
+
+<table id="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Stock</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        {{#each products}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>{{code}}</td>
+            <td>{{price}}</td>
+            <td>{{status}}</td>
+            <td>{{stock}}</td>
+            <td>{{category}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
